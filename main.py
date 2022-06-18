@@ -14,13 +14,15 @@ pg.display.set_caption('Boids')
 
 run = True
 
-test_boid = Boid((WIDTH / 2, HEIGHT / 2), 30, 10)
+test_boid = Boid((WIDTH / 2, HEIGHT / 2), 30)
 
 while run:
     screen.fill((BLACK))
 
     # our code
-    pg.draw.polygon(screen, WHITE, test_boid.pos, width=2)
+    test_boid.draw_boid(screen, WHITE)
+    test_boid.change_boid_dir(0.3)
+    test_boid.move()
 
     pg.display.update()
 

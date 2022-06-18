@@ -1,6 +1,31 @@
+import pygame as pg
+import math
+
 class Boid:
-    def __init__(self, starting_pos, starting_angle, scale):
-        self.p1 = starting_pos
-        self.p2 = (starting_pos[0] + 4 * scale, starting_pos[1] + 10 * scale)
-        self.p3 = (starting_pos[0] - 4 * scale, starting_pos[1] + 10 * scale)
-        self.pos = (self.p1, self.p2, self.p3)
+    def __init__(self, starting_pos, angle=0, scale=20):
+        # clean up unecessary stuff
+        self.pos = starting_pos
+        self.angle = angle
+        self.scale = scale
+        self.velocity = 1
+
+    def rotate_points(self):
+        points = [(-0.5, -0.866), (-0.5, 0.866), (2.0, 0.0)]
+        rotated_points = [pg.math.Vector2(p).rotate(self.angle) for p in points]
+        triangle_points = [(self.pos + p * self.scale) for p in rotated_points]
+        return triangle_points
+
+    def draw_boid(self, screen, color):
+        pg.draw.polygon(screen, color, self.rotate_points(), width=2)
+
+    def change_boid_dir(self, degree):
+        self.angle += degree
+        self.angle = self.angle % 360
+
+    def move(self):
+        (x, y) = self.pos
+        rad = math.radians(self.angle)
+        x += self.velocity * math.cos(rad)
+        y += self.velocity * math.sin(rad)
+
+        self.pos = (x, y)
