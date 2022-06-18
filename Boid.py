@@ -7,7 +7,7 @@ class Boid:
         self.pos = starting_pos
         self.angle = angle
         self.scale = scale
-        self.velocity = 1
+        self.velocity = 0.2
 
     def rotate_points(self):
         points = [(-0.5, -0.866), (-0.5, 0.866), (2.0, 0.0)]
@@ -16,7 +16,7 @@ class Boid:
         return triangle_points
 
     def draw_boid(self, screen, color):
-        pg.draw.polygon(screen, color, self.rotate_points(), width=2)
+        pg.draw.polygon(screen, color, self.rotate_points(), width=1)
 
     def change_boid_dir(self, degree):
         self.angle += degree

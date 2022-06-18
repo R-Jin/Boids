@@ -1,31 +1,26 @@
 import pygame as pg
 from Boid import Boid
-pg.init()
+from Sim import Sim
 
 # Colors
 WHITE = (255, 255, 255)
 BLACK = (0, 0, 0)
 
-(WIDTH, HEIGHT) = (1920, 1080)
-
-screen = pg.display.set_mode((WIDTH, HEIGHT))
-
 pg.display.set_caption('Boids')
 
-run = True
+sim = Sim()
 
-test_boid = Boid((WIDTH / 2, HEIGHT / 2), 30)
+test_boid = Boid((sim.WIDTH / 2, sim.HEIGHT / 2), 2, 6)
 
-while run:
-    screen.fill((BLACK))
+while sim.run:
+    sim.screen.fill((BLACK))
 
     # our code
-    test_boid.draw_boid(screen, WHITE)
-    test_boid.change_boid_dir(0.3)
+    test_boid.draw_boid(sim.screen, WHITE)
     test_boid.move()
 
     pg.display.update()
 
+    sim.handle_keys(test_boid)
     for event in pg.event.get():
-        if event.type == pg.QUIT:
-            run = False
+        sim.handle_events(event)
