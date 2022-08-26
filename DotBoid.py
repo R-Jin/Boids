@@ -23,35 +23,35 @@ class Boid:
         """Get the center of mass and steer towards it"""
         sum_of_pos = pg.math.Vector2()
         n = 0
-        perception = 200                # Perception is 100px
+        perception = 90                # Perception is 100px
         for boid in flock:
             if (not (self is boid) and perception >= self.pos.distance_to(boid.pos)):
                 sum_of_pos += boid.pos
                 n += 1
 
         if (n == 0):
-            return
+            return pg.math.Vector2()
 
         center_mass = sum_of_pos / n
 
-        factor = 1 / 110                # Percentage to move towards the center
-        self.velocity += (center_mass - self.pos) * factor
+        factor = 1 / 200                # Percentage to move towards the center
+        return (center_mass - self.pos) * factor
 
     def seperation(self, flock):
         """Make the boid move away from nearby boids"""
         vel = pg.math.Vector2()
-        perception = 70
+        perception = 80
         for boid in flock:
             if (not (self is boid) and perception >= self.pos.distance_to(boid.pos)):
                 vel -= (boid.pos - self.pos)
 
-        factor = 1 / 110
-        self.velocity += vel * factor
+        factor = 1 / 900
+        return (vel * factor)
 
     def alignment(self, flock):
         vel = pg.math.Vector2()
         n = 0
-        perception = 80
+        perception = 60
 
         for boid in flock:
             if (not (self is boid) and perception >= self.pos.distance_to(boid.pos)):
@@ -59,12 +59,12 @@ class Boid:
                 n += 1
 
         if (n == 0):
-            return
+            return pg.math.Vector2()
 
         avg_vel = vel / n
 
         factor = 20 / 100
-        self.velocity += (avg_vel - self.velocity) * factor
+        return (avg_vel - self.velocity) * factor
 
     def update(self):
         # Limit the velocity
