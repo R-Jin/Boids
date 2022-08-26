@@ -60,7 +60,7 @@ class Boid:
     def alignment(self, flock):
         vel = pg.math.Vector2()
         n = 0
-        perception = 60
+        perception = 80
 
         for boid in flock:
             if (not (self is boid) and perception >= self.pos.distance_to(boid.pos)):
