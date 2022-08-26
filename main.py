@@ -1,6 +1,6 @@
 import pygame as pg
 
-from DotBoid import Boid
+from Boid import Boid
 from Sim import Sim
 
 flock = [];
@@ -26,14 +26,16 @@ while sim.run:
     sim.screen.fill((BLACK))
 
     for boid in flock:
-        boid.draw(sim.screen, WHITE)
 
         cohesion = boid.cohesion(flock)
         separation = boid.seperation(flock)
         alignment = boid.alignment(flock)
 
         boid.velocity += cohesion + separation + alignment
+
         boid.update()
+
+        boid.draw(sim.screen, WHITE)
 
     events = pg.event.get()
 
