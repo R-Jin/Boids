@@ -1,3 +1,3 @@
 # Boids
-Boids simulation written in python using the pygame library
+Flocking simulation written in python using the pygame library
 ![](/media/boids.gif)
