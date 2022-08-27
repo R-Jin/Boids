@@ -25,7 +25,7 @@ class Boid:
         return triangle_points
 
     def draw(self, screen, color):
-        self.angle = math.degrees(math.atan(self.velocity.y / self.velocity.x))
+        self.angle = math.degrees(math.atan2(self.velocity.y, self.velocity.x))
         pg.draw.polygon(screen, color, self.rotate_points(), width=1)
 
     def cohesion(self, flock):
